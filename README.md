@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,7 +47,6 @@ header{
     letter-spacing:2px;
 }
 
-/* light shine */
 @keyframes shine{
     0%{filter:brightness(1);}
     50%{filter:brightness(2);}
@@ -68,7 +67,6 @@ header{
     overflow:hidden;
 }
 
-/* light reflection */
 .container::before{
     content:"";
     position:absolute;
@@ -188,7 +186,6 @@ footer{
     max-width:900px;
 }
 
-/* ====== CREDIT BUTTON ====== */
 .credit{
     margin-top:10px;
     background:#ff0000;
@@ -216,17 +213,17 @@ footer{
 
 <div class="container">
 
-    <label>Script original</label>
+    <label>Original script</label>
     <textarea id="script"></textarea>
 
-    <label>Mot à chercher</label>
+    <label>Word to search</label>
     <input id="search" type="text">
 
-    <label>Nouveau mot</label>
+    <label>New word</label>
     <input id="replace" type="text">
 
-    <button class="primary" onclick="preview()">Prévisualiser</button>
-    <button class="primary" onclick="startProcess()">Remplacer</button>
+    <button class="primary" onclick="preview()">Preview</button>
+    <button class="primary" onclick="startProcess()">Replace</button>
 
     <div class="error" id="error"></div>
 
@@ -239,12 +236,12 @@ footer{
         </div>
     </div>
 
-    <button class="copy" onclick="copyResult()">Copier le résultat</button>
+    <button class="copy" onclick="copyResult()">Copy result</button>
 
 </div>
 
 <footer>
-Ce site est créé pour aider les petits créateurs de script qui n’ont pas d’inspiration, cela les aide simplement à modifier plus rapidement les scripts et changer les noms.
+This website is created to help small script creators who lack inspiration. It helps them quickly modify scripts and change names.
 <br>
 
 <div class="credit" onclick="window.open('https://youtube.com/@scripteur2bz?si=FwLg8DBPWS1UFEtj')">
@@ -270,12 +267,14 @@ function preview(){
     let regex = new RegExp(word, "gi");
 
     if(!script.match(regex)){
-        error.textContent = "ERROR : mot introuvable dans le script";
+        error.textContent = "ERROR: word not found in script";
         preview.textContent = script;
         return;
     }
 
-    preview.innerHTML = script.replace(regex, match => `<span class="highlight">${match}</span>`);
+    preview.innerHTML = script.replace(regex, match =>
+        `<span class="highlight">${match}</span>`
+    );
 }
 
 function startProcess(){
@@ -287,12 +286,14 @@ function startProcess(){
     let regex = new RegExp(word, "gi");
 
     if(!script.match(regex)){
-        error.textContent = "ERROR : mot introuvable dans le script";
+        error.textContent = "ERROR: word not found in script";
         return;
     }
 
     error.textContent = "";
     document.getElementById("loadingBox").style.display = "block";
+
+    document.querySelector("#loadingBox div").textContent = "Loading...";
 
     let progress = document.getElementById("progress");
     let percent = 0;
@@ -314,7 +315,7 @@ function startProcess(){
 function copyResult(){
     let text = document.getElementById("preview").innerText;
     navigator.clipboard.writeText(text);
-    alert("Copié !");
+    alert("Copied!");
 }
 
 </script>
